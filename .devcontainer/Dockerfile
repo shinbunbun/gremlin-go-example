@@ -1,11 +1,26 @@
-FROM mcr.microsoft.com/vscode/devcontainers/go:0-1.18
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/go/.devcontainer/base.Dockerfile
 
-ENV GO111MODULE=on
-RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
-    go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.40.0
-RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s
+# [Choice] Go version (use -bullseye variants on local arm64/Apple Silicon): 1, 1.19, 1.18, 1-bullseye, 1.19-bullseye, 1.18-bullseye, 1-buster, 1.19-buster, 1.18-buster
+ARG VARIANT="1.19-bullseye"
+FROM mcr.microsoft.com/vscode/devcontainers/go:0-${VARIANT}
+
+# [Choice] Node.js version: none, lts/*, 18, 16, 14
+ARG NODE_VERSION="none"
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+
 RUN wget "https://dlcdn.apache.org/tinkerpop/3.6.1/apache-tinkerpop-gremlin-console-3.6.1-bin.zip" && \
     unzip apache-tinkerpop-gremlin-console-3.6.1-bin.zip && \
     cp -r apache-tinkerpop-gremlin-console-3.6.1 /usr/local/gremlin-console && \
     chmod 700 /usr/local/gremlin-console/bin/gremlin.sh && \
-    ln -s /usr/local/gremlin-console/bin/gremlin.sh /usr/local/bin/gremlin
+    ln -s /usr/local/gremlin-console/bin/gremlin.sh /usr/local/bin/gremlin-console
+
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
+
+# [Optional] Uncomment the next lines to use go get to install anything else you need
+# USER vscode
+# RUN go get -x <your-dependency-or-tool>
+
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
