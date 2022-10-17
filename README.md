@@ -4,6 +4,16 @@ GoでGremlinを実行するサンプルです
 
 ## 使い方
 
+### グラフの作成
+
+`go run main.go create`
+
+### グラフの探索
+
+`go run main.go search`
+
+## 環境について
+
 ### devcontainer
 
 VS Codeのdevcontainerを起動するとgremlin-serverが実行されます。
