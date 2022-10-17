@@ -1,0 +1,27 @@
+{
+    "name": "Go",
+    "dockerComposeFile": [
+      "./docker-compose.yml"
+    ],
+    "service": "backend",
+    "workspaceFolder": "/workspace/gremlin-go-example",
+    "settings": {
+      "terminal.integrated.defaultProfile.linux": "zsh",
+      "terminal.integrated.profiles.linux": {
+        "zsh": {
+          "path": "/usr/bin/zsh"
+        },
+      },
+      "go.toolsManagement.checkForUpdates": "local",
+      "go.gopath": "/go",
+      "go.useLanguageServer": true
+    },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+      "golang.Go"
+    ],
+    "forwardPorts": [8080],
+    "features": {
+          "java": "11"
+      }
+}
