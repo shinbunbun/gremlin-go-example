@@ -1,5 +1,11 @@
 version: "3"
 services:
+  workspace:
+    build: 
+      context: "."
+    command: sleep infinity
+    volumes:
+      - ../:/workspace/gremlin-go-example
   graph:
     image: tinkerpop/gremlin-server:3.5.2
     ports:
