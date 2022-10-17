@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	host := "ws://localhost:8182/gremlin"
+	host := "ws://graph:8182/gremlin"
 
 	driverRemoteConnection, err := gremlingo.NewDriverRemoteConnection(host)
 	if err != nil {
