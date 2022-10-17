@@ -15,5 +15,7 @@ mkShell {
     golint
     golangci-lint
     git
+    gremlin-server
+    gremlin-console
   ];
 }
